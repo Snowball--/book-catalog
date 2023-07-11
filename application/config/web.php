@@ -10,6 +10,7 @@ $config = [
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
+        '@catalog' => '@app/Catalog'
     ],
     'components' => [
         'request' => [
@@ -42,14 +43,17 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
+
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-        */
+
+    ],
+    'modules' => [
+        'catalog' => 'app\Catalog\Infrastructure\CatalogModule'
     ],
     'params' => $params,
 ];
