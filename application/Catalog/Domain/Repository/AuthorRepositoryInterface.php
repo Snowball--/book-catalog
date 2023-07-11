@@ -12,5 +12,5 @@ namespace app\Catalog\Domain\Repository;
 
 interface AuthorRepositoryInterface
 {
-
+    public function getAllAuthors();
 }
