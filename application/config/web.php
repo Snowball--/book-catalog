@@ -2,11 +2,14 @@
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
+$container = require __DIR__ . '/container.php';
 
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => [
+        'log',
+    ],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -56,6 +59,8 @@ $config = [
         'catalog' => 'app\Catalog\Infrastructure\CatalogModule'
     ],
     'params' => $params,
+    'container' => $container,
+    'defaultRoute' => 'catalog/default/index'
 ];
 
 if (YII_ENV_DEV) {

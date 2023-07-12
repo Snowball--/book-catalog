@@ -2,6 +2,9 @@
 
 namespace app\Catalog\Infrastructure\Controller;
 
+use app\Catalog\Application\Service\CatalogService;
+use app\Catalog\Application\Utility\RepositoryContainerInterface;
+use app\Catalog\Infrastructure\Form\SearchBooksForm;
 use yii\web\Controller;
 
 /**
@@ -16,10 +19,16 @@ class DefaultController extends Controller
 
     /**
      * Renders the index view for the module
+     * @param CatalogService $catalogService
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex(CatalogService $catalogService): string
     {
-        return $this->render('index');
+        $form = new SearchBooksForm();
+        $books = $catalogService->getBookList($form);
+
+        return $this->render('index', [
+            'books' => $books
+        ]);
     }
 }

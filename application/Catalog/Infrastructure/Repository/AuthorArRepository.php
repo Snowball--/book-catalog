@@ -57,4 +57,9 @@ class AuthorArRepository extends ActiveRecord implements AuthorRepositoryInterfa
         return $this->hasMany(BookArRepository::class, ['book_id' => 'id'])
             ->viaTable('authors_books_rel', ['author_id' => 'id']);
     }
+
+    public function getAllAuthors()
+    {
+        // TODO: Implement getAllAuthors() method.
+    }
 }

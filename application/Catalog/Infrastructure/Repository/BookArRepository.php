@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace app\Catalog\Infrastructure\Repository;
 
+use app\Catalog\Domain\Dto\SearchBooksDtoInterface;
+use app\Catalog\Domain\Repository\BookRepositoryInterface;
+use app\Utility\PageableInterface;
+use app\Utility\SortableInterface;
+use Traversable;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\db\ActiveQuery;
@@ -18,7 +23,7 @@ use yii\db\ActiveQuery;
  * @property string $isbn
  * @property string $image
  */
-class BookArRepository extends \yii\db\ActiveRecord
+class BookArRepository extends \yii\db\ActiveRecord implements BookRepositoryInterface
 {
     /**
      * {@inheritdoc}
@@ -66,5 +71,22 @@ class BookArRepository extends \yii\db\ActiveRecord
     {
         return $this->hasMany(BookArRepository::class, ['book_id' => 'id'])
             ->viaTable('authors_books_rel', ['author_id' => 'id']);
+    }
+
+    public function getBookList(SearchBooksDtoInterface $dto): array
+    {
+         $query = self::find()
+            ->where($dto->getSearchConditions());
+
+         if ($dto instanceof SortableInterface) {
+             $query->orderBy($dto->getSort());
+         }
+
+         if ($dto instanceof PageableInterface) {
+             $query->limit($dto->getLimit())
+                 ->offset($dto->getOffset());
+         }
+
+         return $query->all();
     }
 }

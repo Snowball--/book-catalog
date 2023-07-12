@@ -10,7 +10,9 @@ declare(strict_types=1);
 
 namespace app\Catalog\Domain\Repository;
 
+use app\Catalog\Domain\Dto\SearchBooksDtoInterface;
+
 interface BookRepositoryInterface
 {
-
+    public function getBookList(SearchBooksDtoInterface $dto): array;
 }

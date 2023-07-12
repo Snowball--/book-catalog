@@ -1,5 +1,14 @@
+<?php
+
+/* @var array $books */
+
+?>
+
 <div class="Catalog-default-index">
-    <h1><?= $this->context->action->uniqueId ?></h1>
+    <h1>Каталог книг</h1>
+
+    <?php foreach ($books as $book): ?>
+    <?php endforeach; ?>
     <p>
         This is the view content for action "<?= $this->context->action->id ?>".
         The action belongs to the controller "<?= get_class($this->context) ?>"
