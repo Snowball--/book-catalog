@@ -28,12 +28,6 @@ class m230711_123112_Add_author_AR extends Migration
         ]);
 
         $this->addPrimaryKey('pk', self::AUTHORS_BOOKS_TABLE, ['book_id', 'author_id']);
-        $this->createIndex('book_author_index', self::AUTHORS_BOOKS_TABLE, 'book_id');
-        $this->createIndex('author_book_index', self::AUTHORS_BOOKS_TABLE, 'author_id');
-
-
-        $this->addForeignKey('book_author_fk', self::BOOKS_TABLE, 'id', self::AUTHORS_BOOKS_TABLE, 'book_id', 'CASCADE', 'RESTRICT');
-        $this->addForeignKey('author_book_fk', self::AUTHORS_TABLE, 'id', self::AUTHORS_BOOKS_TABLE, 'author_id', 'CASCADE', 'RESTRICT');
     }
 
     /**
@@ -41,9 +35,6 @@ class m230711_123112_Add_author_AR extends Migration
      */
     public function safeDown()
     {
-        $this->dropForeignKey('BOOK_AUTHOR_FK', self::BOOKS_TABLE);
-        $this->dropForeignKey('AUTHOR_BOOK_FK', self::AUTHORS_TABLE);
-
         $this->dropTable(self::AUTHORS_BOOKS_TABLE);
         $this->dropTable(self::AUTHORS_TABLE);
     }

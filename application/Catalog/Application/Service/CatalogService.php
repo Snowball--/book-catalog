@@ -12,17 +12,24 @@ namespace app\Catalog\Application\Service;
 
 
 use app\Catalog\Application\Utility\RepositoryContainerInterface;
+use app\Catalog\Domain\Dto\CreateAuthorDtoInterface;
 use app\Catalog\Domain\Dto\SearchBooksDtoInterface;
-use Traversable;
+use app\Catalog\Domain\Entity\Author;
 
-class CatalogService
+readonly class CatalogService
 {
     public function __construct(
-        private readonly RepositoryContainerInterface $repositoryContainer
+        private RepositoryContainerInterface $repositoryContainer
     ){}
 
     public function getBookList(SearchBooksDtoInterface $dto): array
     {
         return $this->repositoryContainer->getBooksRepository()->getBookList($dto);
+    }
+
+    public function createAuthor(CreateAuthorDtoInterface $dto): Author
+    {
+        $authorData = $this->repositoryContainer->getAuthorsRepository()->createAuthor($dto);
+
     }
 }

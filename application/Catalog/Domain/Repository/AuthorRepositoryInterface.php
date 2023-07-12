@@ -10,7 +10,12 @@ declare(strict_types=1);
 
 namespace app\Catalog\Domain\Repository;
 
+use app\Catalog\Domain\Dto\CreateAuthorDtoInterface;
+use app\Catalog\Domain\Entity\Author;
+
 interface AuthorRepositoryInterface
 {
-    public function getAllAuthors();
+    public function getAllAuthors(): array;
+
+    public function createAuthor(CreateAuthorDtoInterface $dto);
 }

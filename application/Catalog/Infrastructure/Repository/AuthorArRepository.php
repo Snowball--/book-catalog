@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace app\Catalog\Infrastructure\Repository;
 
+use app\Catalog\Domain\Dto\CreateAuthorDtoInterface;
+use app\Catalog\Domain\Entity\Author;
 use app\Catalog\Domain\Repository\AuthorRepositoryInterface;
+use app\Catalog\Infrastructure\Factory\AuthorFactory;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\db\ActiveQuery;
@@ -58,8 +61,19 @@ class AuthorArRepository extends ActiveRecord implements AuthorRepositoryInterfa
             ->viaTable('authors_books_rel', ['author_id' => 'id']);
     }
 
-    public function getAllAuthors()
+    public function getAllAuthors(): array
     {
         // TODO: Implement getAllAuthors() method.
+    }
+
+    public function createAuthor(CreateAuthorDtoInterface $dto): Author
+    {
+        $author = new self();
+        $author->full_name = $dto->getFullName();
+
+        $author->save();
+
+        $factory = Yii::$container->get('app\Catalog\Infrastructure\Factory\AuthorFactory');
+        return $factory->factory($author);
     }
 }
