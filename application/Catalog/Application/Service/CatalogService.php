@@ -29,7 +29,6 @@ readonly class CatalogService
 
     public function createAuthor(CreateAuthorDtoInterface $dto): Author
     {
-        $authorData = $this->repositoryContainer->getAuthorsRepository()->createAuthor($dto);
-
+        return $this->repositoryContainer->getAuthorsRepository()->createAuthor($dto);
     }
 }

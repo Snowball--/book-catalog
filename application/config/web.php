@@ -60,7 +60,7 @@ $config = [
     ],
     'params' => $params,
     'container' => $container,
-    'defaultRoute' => 'catalog/default/index'
+    'defaultRoute' => 'catalog/book/index'
 ];
 
 if (YII_ENV_DEV) {
