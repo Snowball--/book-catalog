@@ -16,9 +16,9 @@ use app\Catalog\Domain\Entity\Author;
 use app\Catalog\Infrastructure\Repository\AuthorArRepository;
 use app\Catalog\Infrastructure\Repository\RepositoryContainer;
 
-class AuthorFactory
+readonly class AuthorFactory
 {
-    public function __construct(private readonly RepositoryContainerInterface $repositoryContainer)
+    public function __construct(private RepositoryContainerInterface $repositoryContainer)
     {
     }
 

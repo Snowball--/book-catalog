@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace app\Catalog\Infrastructure\Repository;
 
+use app\Catalog\Domain\Dto\CreateBookDtoInterface;
 use app\Catalog\Domain\Dto\SearchBooksDtoInterface;
+use app\Catalog\Domain\Entity\Book;
 use app\Catalog\Domain\Repository\BookRepositoryInterface;
 use app\Utility\PageableInterface;
 use app\Utility\SortableInterface;
@@ -88,5 +90,22 @@ class BookArRepository extends \yii\db\ActiveRecord implements BookRepositoryInt
          }
 
          return $query->all();
+    }
+
+    public function createBook(CreateBookDtoInterface $dto): Book
+    {
+        $book = new self();
+        $book->title = $dto->getTitle();
+        $book->image = $dto->getImagePath();
+        $book->writing_year = $dto->getWritingYear();
+        $book->description = $dto->getDescription();
+        $book->isbn = $dto->getIsbn();
+
+        if (! $book->save()) {
+
+        }
+
+        $factory = Yii::$container->get('app\Catalog\Infrastructure\Factory\BookFactory');
+        return $factory->factory($book);
     }
 }

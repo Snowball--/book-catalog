@@ -36,6 +36,12 @@ return [
                 return new \app\Catalog\Infrastructure\Factory\AuthorFactory(
                     $container->get('app\Catalog\Application\Utility\RepositoryContainerInterface')
                 );
-            }
+            },
+        'app\Catalog\Infrastructure\Factory\BookFactory'
+            => function (Container $container, $params, $config) {
+                return new \app\Catalog\Infrastructure\Factory\BookFactory(
+                    $container->get('app\Catalog\Application\Utility\RepositoryContainerInterface')
+                );
+        }
     ]
 ];
