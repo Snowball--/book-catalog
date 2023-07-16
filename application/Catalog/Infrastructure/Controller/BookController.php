@@ -5,6 +5,7 @@ namespace app\Catalog\Infrastructure\Controller;
 use app\Catalog\Application\Service\CatalogService;
 use app\Catalog\Application\Utility\Helper;
 use app\Catalog\Domain\Entity\Author;
+use app\Catalog\Infrastructure\Command\UploadBookPreviewCommand;
 use app\Catalog\Infrastructure\Form\CreateBookForm;
 use app\Catalog\Infrastructure\Form\SearchBooksForm;
 use app\Utility\PageableInterface;
@@ -73,7 +74,10 @@ class BookController extends BaseCatalogWebController
 
         if (Yii::$app->request->getIsPost()) {
             if ($form->validate()) {
-                $book = $catalogService->createBook($form);
+                $command = new UploadBookPreviewCommand($form->getImage(), Yii::getAlias('@images'));
+                $book = $catalogService->createBook($form, $command);
+
+
                 Yii::$app->session->setFlash('success', 'Книга успешно добавлена');
             }
 

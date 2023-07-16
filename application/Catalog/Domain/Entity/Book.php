@@ -17,13 +17,15 @@ class Book implements EntityInterface
 {
     public function __construct(
         private readonly RepositoryContainerInterface $repositoryContainer,
-        private readonly int $id,
-        private string $title,
-        private int $writingYear,
-        private string $description = '',
-        private string $isbn = '',
-        private ?BookImagePreview $preview = null
-    ) {}
+        private readonly int                          $id,
+        private string                                $title,
+        private int                                   $writingYear,
+        private string                                $description = '',
+        private string                                $isbn = '',
+        private ?BookImagePreview                     $preview = null
+    )
+    {
+    }
 
     public function getId(): int
     {

@@ -12,6 +12,7 @@ namespace app\Catalog\Application\Service;
 
 
 use app\Catalog\Application\Utility\RepositoryContainerInterface;
+use app\Catalog\Domain\Command\UploadBookPreviewCommandInterface;
 use app\Catalog\Domain\Dto\CreateAuthorDtoInterface;
 use app\Catalog\Domain\Dto\CreateBookDtoInterface;
 use app\Catalog\Domain\Dto\SearchAuthorsDtoInterface;
@@ -30,9 +31,15 @@ readonly class CatalogService
         return $this->repositoryContainer->getBooksRepository()->getBookList($dto);
     }
 
-    public function createBook(CreateBookDtoInterface $dto): Book
+    public function createBook(CreateBookDtoInterface $dto, ?UploadBookPreviewCommandInterface $command = null): Book
     {
-        return $this->repositoryContainer->getBooksRepository()->createBook($dto);
+        // TODO: очень странное решение отвязаться от деталей имплементации, подумать как это можно исправить
+        if ($command instanceof UploadBookPreviewCommandInterface) {
+            $command->execute();
+        }
+        $book = $this->repositoryContainer->getBooksRepository()->createBook($dto);
+
+        return $book;
     }
 
     public function getFullAuthorList(): array

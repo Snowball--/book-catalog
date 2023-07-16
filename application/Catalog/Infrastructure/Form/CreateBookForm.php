@@ -12,10 +12,8 @@ namespace app\Catalog\Infrastructure\Form;
 
 
 use app\Catalog\Domain\Dto\CreateBookDtoInterface;
-use app\Catalog\Domain\Entity\Author;
 use app\Catalog\Infrastructure\Form\Enum\BookScenarios;
 use yii\base\Model;
-use yii\helpers\ArrayHelper;
 use yii\web\UploadedFile;
 
 class CreateBookForm extends Model implements CreateBookDtoInterface

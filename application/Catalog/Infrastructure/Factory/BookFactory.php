@@ -25,7 +25,7 @@ class BookFactory
             $authorData->writing_year,
             $authorData->description,
             $authorData->isbn,
-            new BookImagePreview($authorData->image)
+            new BookImagePreview('/images/' . $authorData->image)
         );
     }
 }

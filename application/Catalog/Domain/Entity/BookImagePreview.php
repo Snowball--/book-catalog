@@ -13,7 +13,7 @@ namespace app\Catalog\Domain\Entity;
 
 class BookImagePreview
 {
-    public function __construct(private readonly string $imagePath)
+    public function __construct(private string $imagePath)
     {
     }
 

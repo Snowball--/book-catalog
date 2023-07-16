@@ -23,7 +23,7 @@ use yii\grid\GridView;
         <?php foreach ($books as $book): ?>
             <div class="col-3">
                 <div class="container">
-                    <img src="<?= $book->getPreview() instanceof BookImagePreview ? $book->getPreview()->getImagePath() : '&mdash;'?>">
+                    <img class="img-thumbnail" src="<?= $book->getPreview() instanceof BookImagePreview ? $book->getPreview()->getImagePath() : '&mdash;'?>">
                     <div class="">
                         <?= \yii\helpers\Html::encode($book->getTitle()) ?>
                     </div>
