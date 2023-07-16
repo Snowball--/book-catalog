@@ -7,6 +7,7 @@ $container = require __DIR__ . '/container.php';
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
+    'name' => 'Каталог',
     'bootstrap' => [
         'log',
     ],

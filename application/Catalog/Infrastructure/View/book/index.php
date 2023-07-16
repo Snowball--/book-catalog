@@ -16,7 +16,6 @@ use yii\grid\GridView;
     <?php if (! Yii::$app->getUser()->isGuest): ?>
         <div class="btn-group">
             <a href="<?= \yii\helpers\Url::toRoute('book/create') ?>" class="btn btn-primary">Добавить книгу</a>
-            <a href="<?= \yii\helpers\Url::toRoute('author/create') ?>" class="btn btn-success">Добавить автора</a>
         </div>
     <?php endif; ?>
 
