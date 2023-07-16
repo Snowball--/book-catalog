@@ -12,12 +12,13 @@ namespace app\Catalog\Domain\Entity;
 
 
 use app\Catalog\Application\Utility\RepositoryContainerInterface;
+use app\Catalog\Domain\Repository\AuthorRepositoryInterface;
 use app\Catalog\Infrastructure\Repository\RepositoryContainer;
 
 class Author implements EntityInterface
 {
     public function __construct(
-        private readonly RepositoryContainerInterface $authorRepository,
+        private readonly AuthorRepositoryInterface $authorRepository,
         private readonly int  $id,
         private string $fullName
     ){}
@@ -30,5 +31,10 @@ class Author implements EntityInterface
     public function getFullName(): string
     {
         return $this->fullName;
+    }
+
+    public function publishBook(Book $book)
+    {
+
     }
 }

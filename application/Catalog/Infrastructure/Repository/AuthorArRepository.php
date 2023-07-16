@@ -103,4 +103,17 @@ class AuthorArRepository extends ActiveRecord implements AuthorRepositoryInterfa
 
         return $authors;
     }
+
+    public function get(int $id): ?Author
+    {
+        $author = self::findOne(['id' => $id]);
+
+        if ($author !== null) {
+            // TODO: вынести факту в конструктор
+            $factory = Yii::$container->get('app\Catalog\Infrastructure\Factory\AuthorFactory');
+            $author = $factory->factory($author);
+        }
+
+        return $author;
+    }
 }

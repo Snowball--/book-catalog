@@ -21,8 +21,5 @@ interface CreateBookDtoInterface
 
     public function getImagePath(): ?string;
 
-    /**
-     * @return Author[]
-     */
     public function getAuthors(): array;
 }

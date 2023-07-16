@@ -21,4 +21,6 @@ interface AuthorRepositoryInterface
     public function createAuthor(CreateAuthorDtoInterface $dto);
 
     public function search(SearchAuthorsDtoInterface $dto): array;
+
+    public function get(int $id): ?Author;
 }

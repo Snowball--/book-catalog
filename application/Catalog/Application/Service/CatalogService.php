@@ -39,6 +39,12 @@ readonly class CatalogService
         }
         $book = $this->repositoryContainer->getBooksRepository()->createBook($dto);
 
+        $authorRepository = $this->repositoryContainer->getAuthorsRepository();
+        foreach ($dto->getAuthors() as $authorId => $authorName) {
+            $author = $authorRepository->get($authorId);
+
+        }
+
         return $book;
     }
 

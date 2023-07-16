@@ -77,7 +77,6 @@ class BookController extends BaseCatalogWebController
                 $command = new UploadBookPreviewCommand($form->getImage(), Yii::getAlias('@images'));
                 $book = $catalogService->createBook($form, $command);
 
-
                 Yii::$app->session->setFlash('success', 'Книга успешно добавлена');
             }
 
