@@ -5,9 +5,13 @@ declare(strict_types=1);
 namespace app\Catalog\Infrastructure\Repository;
 
 use app\Catalog\Domain\Dto\CreateAuthorDtoInterface;
+use app\Catalog\Domain\Dto\SearchAuthorsDtoInterface;
 use app\Catalog\Domain\Entity\Author;
 use app\Catalog\Domain\Repository\AuthorRepositoryInterface;
 use app\Catalog\Infrastructure\Factory\AuthorFactory;
+use app\Catalog\Infrastructure\Form\SearchAuthorsForm;
+use app\Utility\PageableInterface;
+use app\Utility\SortableInterface;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\db\ActiveQuery;
@@ -63,7 +67,8 @@ class AuthorArRepository extends ActiveRecord implements AuthorRepositoryInterfa
 
     public function getAllAuthors(): array
     {
-        // TODO: Implement getAllAuthors() method.
+        $dto = new SearchAuthorsForm();
+        return $this->search($dto);
     }
 
     public function createAuthor(CreateAuthorDtoInterface $dto): Author
@@ -75,5 +80,27 @@ class AuthorArRepository extends ActiveRecord implements AuthorRepositoryInterfa
 
         $factory = Yii::$container->get('app\Catalog\Infrastructure\Factory\AuthorFactory');
         return $factory->factory($author);
+    }
+
+    public function search(SearchAuthorsDtoInterface $dto): array
+    {
+        $query = self::find()->where($dto->getSearchConditions());
+
+        if ($dto instanceof SortableInterface) {
+            $query->orderBy($dto->getSort());
+        }
+
+        if ($dto instanceof PageableInterface) {
+            $query->limit($dto->getLimit())
+                ->offset($dto->getOffset());
+        }
+
+        $authors = [];
+        $factory = Yii::$container->get('app\Catalog\Infrastructure\Factory\AuthorFactory');
+        foreach ($query->all() as $author) {
+            $authors[] = $factory->factory($author);
+        }
+
+        return $authors;
     }
 }

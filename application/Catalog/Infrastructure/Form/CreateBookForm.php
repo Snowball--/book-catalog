@@ -13,7 +13,9 @@ namespace app\Catalog\Infrastructure\Form;
 
 use app\Catalog\Domain\Dto\CreateBookDtoInterface;
 use app\Catalog\Domain\Entity\Author;
+use app\Catalog\Infrastructure\Form\Enum\BookScenarios;
 use yii\base\Model;
+use yii\helpers\ArrayHelper;
 use yii\web\UploadedFile;
 
 class CreateBookForm extends Model implements CreateBookDtoInterface
@@ -34,11 +36,17 @@ class CreateBookForm extends Model implements CreateBookDtoInterface
     {
         return [
             [['title'], 'required'],
-            [['title', 'isbn', 'image'], 'string', 'max' => 255],
+            [['title', 'isbn'], 'string', 'max' => 255],
             [['description'], 'string'],
             [['writingYear'], 'integer', 'max' => date('Y')],
-            [['authors'], 'ar'],
-            [['image'], 'image'],
+            [['image'], 'image', 'skipOnEmpty' => false],
+        ];
+    }
+
+    public function scenarios(): array
+    {
+        return [
+            BookScenarios::Create->value => ['title', 'description', 'writingYear', 'isbn']
         ];
     }
 
@@ -68,7 +76,7 @@ class CreateBookForm extends Model implements CreateBookDtoInterface
     }
 
     /**
-     * @return array|Author[]
+     * @return array
      */
     public function getAuthors(): array
     {

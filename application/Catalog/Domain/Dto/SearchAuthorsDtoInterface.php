@@ -12,5 +12,5 @@ namespace app\Catalog\Domain\Dto;
 
 interface SearchAuthorsDtoInterface
 {
-
+    public function getSearchConditions(): array;
 }

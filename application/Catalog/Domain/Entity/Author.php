@@ -26,4 +26,9 @@ class Author implements EntityInterface
     {
         return $this->id;
     }
+
+    public function getFullName(): string
+    {
+        return $this->fullName;
+    }
 }

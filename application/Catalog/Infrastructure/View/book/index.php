@@ -1,6 +1,12 @@
 <?php
 
-/* @var array $books */
+/* @var Book[] $books */
+/* @var ArrayDataProvider $dataProvider */
+
+use app\Catalog\Domain\Entity\Book;
+use app\Catalog\Domain\Entity\BookImagePreview;
+use yii\data\ArrayDataProvider;
+use yii\grid\GridView;
 
 ?>
 
@@ -9,20 +15,24 @@
 
     <?php if (! Yii::$app->getUser()->isGuest): ?>
         <div class="btn-group">
-            <a class="btn btn-primary">Добавить книгу</a>
+            <a href="<?= \yii\helpers\Url::toRoute('book/create') ?>" class="btn btn-primary">Добавить книгу</a>
             <a href="<?= \yii\helpers\Url::toRoute('author/create') ?>" class="btn btn-success">Добавить автора</a>
         </div>
     <?php endif; ?>
 
-    <?php foreach ($books as $book): ?>
-    <?php endforeach; ?>
-    <p>
-        This is the view content for action "<?= $this->context->action->id ?>".
-        The action belongs to the controller "<?= get_class($this->context) ?>"
-        in the "<?= $this->context->module->id ?>" module.
-    </p>
-    <p>
-        You may customize this page by editing the following file:<br>
-        <code><?= __FILE__ ?></code>
-    </p>
+    <div class="row">
+        <?php foreach ($books as $book): ?>
+            <div class="col-3">
+                <div class="container">
+                    <img src="<?= $book->getPreview() instanceof BookImagePreview ? $book->getPreview()->getImagePath() : '&mdash;'?>">
+                    <div class="">
+                        <?= \yii\helpers\Html::encode($book->getTitle()) ?>
+                    </div>
+                    <div><?= \yii\helpers\Html::encode($book->getDescription()) ?></div>
+                    <div><?= \yii\helpers\Html::encode($book->getIsbn()) ?></div>
+                    <div><?= \yii\helpers\Html::encode($book->getWritingYear()) ?></div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
 </div>

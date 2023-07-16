@@ -77,19 +77,26 @@ class BookArRepository extends \yii\db\ActiveRecord implements BookRepositoryInt
 
     public function getBookList(SearchBooksDtoInterface $dto): array
     {
-         $query = self::find()
+        $query = self::find()
             ->where($dto->getSearchConditions());
 
-         if ($dto instanceof SortableInterface) {
-             $query->orderBy($dto->getSort());
-         }
+        if ($dto instanceof SortableInterface) {
+            $query->orderBy($dto->getSort());
+        }
 
-         if ($dto instanceof PageableInterface) {
-             $query->limit($dto->getLimit())
-                 ->offset($dto->getOffset());
-         }
+        if ($dto instanceof PageableInterface) {
+            $query->limit($dto->getLimit())
+                ->offset($dto->getOffset());
+        }
 
-         return $query->all();
+        $factory = Yii::$container->get('app\Catalog\Infrastructure\Factory\BookFactory');
+        $books = [];
+
+        foreach ($query->all() as $book) {
+            $books[] = $factory->factory($book);
+        }
+
+        return $books;
     }
 
     public function createBook(CreateBookDtoInterface $dto): Book

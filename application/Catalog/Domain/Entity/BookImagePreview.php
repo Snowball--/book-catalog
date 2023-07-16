@@ -17,4 +17,8 @@ class BookImagePreview
     {
     }
 
+    public function getImagePath()
+    {
+        return $this->imagePath;
+    }
 }
